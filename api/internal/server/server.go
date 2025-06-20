@@ -4,12 +4,12 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/jwtauth/v5"
 	"github.com/go-redis/redis/v8"
+	_ "github.com/hsalmeida/fruit-store-monorepo/api/docs"
 	"github.com/hsalmeida/fruit-store-monorepo/api/internal/auth"
 	"github.com/hsalmeida/fruit-store-monorepo/api/internal/handler"
 	"github.com/hsalmeida/fruit-store-monorepo/api/internal/publisher"
 	"github.com/jackc/pgx/v5/pgxpool"
 	amqp "github.com/rabbitmq/amqp091-go"
-	_ "github.com/hsalmeida/fruit-store-monorepo/api/docs"
 	httpSwagger "github.com/swaggo/http-swagger"
 )
 
@@ -100,5 +100,5 @@ func (s *Server) setupRoutes() {
 		r.Get("/", handler.List)
 		r.Post("/", handler.Create)
 	})
-	
+
 }

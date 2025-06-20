@@ -68,7 +68,7 @@ func (r *fruitRepo) Create(ctx context.Context, f *model.Fruit) error {
 func (r *fruitRepo) Update(ctx context.Context, f *model.Fruit) error {
 	_, err := r.db.Exec(ctx,
 		`UPDATE fruits SET name=$1, quantity=$2, price=$3, updated_at=$4 WHERE id=$5`,
-		f.Name, f.Quantity, f.Price, time.Now(), f.ID, 
+		f.Name, f.Quantity, f.Price, time.Now(), f.ID,
 	)
 	return err
 }

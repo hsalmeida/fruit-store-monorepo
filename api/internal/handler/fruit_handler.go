@@ -28,6 +28,11 @@ func NewFruitHandler(db *pgxpool.Pool, cache *redis.Client) *FruitHandler {
 	return &FruitHandler{svc: svc, cache: cache}
 }
 
+func (h *FruitHandler) WithService(svc service.FruitService) *FruitHandler {
+	h.svc = svc
+	return h
+}
+
 // List godoc
 // @Summary      Lista todas as frutas
 // @Description  Retorna todas as frutas, usando cache
@@ -53,8 +58,8 @@ func (h *FruitHandler) List(w http.ResponseWriter, r *http.Request) {
 	jsonData, _ := json.Marshal(fruits)
 	h.cache.Set(r.Context(), "fruits:all", jsonData, time.Minute*5)
 	if fruits == nil {
-        fruits = make([]model.Fruit, 0)
-    }
+		fruits = make([]model.Fruit, 0)
+	}
 	json.NewEncoder(w).Encode(fruits)
 }
 
