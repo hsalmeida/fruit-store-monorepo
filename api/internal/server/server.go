@@ -9,6 +9,8 @@ import (
 	"github.com/hsalmeida/fruit-store-monorepo/api/internal/publisher"
 	"github.com/jackc/pgx/v5/pgxpool"
 	amqp "github.com/rabbitmq/amqp091-go"
+	_ "github.com/hsalmeida/fruit-store-monorepo/api/docs"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 type Server struct {
@@ -66,6 +68,9 @@ func WithRabbit(conn *amqp.Connection, ch *amqp.Channel) Option {
 }
 
 func (s *Server) setupRoutes() {
+
+	s.Router.Get("/swagger/*", httpSwagger.WrapHandler)
+
 	// Rota pública de login utilizando auth.GenerateToken
 	s.Router.Route("/auth/login", func(r chi.Router) {
 		handler := handler.NewLoginHandler(s.DB)
@@ -95,4 +100,5 @@ func (s *Server) setupRoutes() {
 		r.Get("/", handler.List)
 		r.Post("/", handler.Create)
 	})
+	
 }

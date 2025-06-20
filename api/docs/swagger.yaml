@@ -1,0 +1,203 @@
+definitions:
+  model.Fruit:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      quantity:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /fruits:
+    get:
+      description: Retorna todas as frutas, usando cache
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Fruit'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Lista todas as frutas
+      tags:
+      - fruits
+    post:
+      consumes:
+      - application/json
+      description: Insere uma nova fruta no sistema e invalida o cache
+      parameters:
+      - description: Dados da fruta
+        in: body
+        name: fruit
+        required: true
+        schema:
+          $ref: '#/definitions/model.Fruit'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Fruit'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Cria uma nova fruta
+      tags:
+      - fruits
+  /fruits/{id}:
+    delete:
+      description: Exclui a fruta com o ID informado e invalida o cache
+      parameters:
+      - description: ID da fruta
+        format: UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Remove uma fruta
+      tags:
+      - fruits
+    get:
+      description: Retorna os dados de uma fruta a partir do ID informado
+      parameters:
+      - description: ID da fruta
+        format: UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Fruit'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Obtém detalhes de uma fruta
+      tags:
+      - fruits
+    put:
+      consumes:
+      - application/json
+      description: Atualiza os campos de uma fruta com o ID informado e invalida o
+        cache
+      parameters:
+      - description: ID da fruta
+        format: UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados atualizados da fruta
+        in: body
+        name: fruit
+        required: true
+        schema:
+          $ref: '#/definitions/model.Fruit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Fruit'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Atualiza uma fruta existente
+      tags:
+      - fruits
+swagger: "2.0"

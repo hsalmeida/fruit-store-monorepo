@@ -59,16 +59,16 @@ func (r *fruitRepo) Create(ctx context.Context, f *model.Fruit) error {
 	f.ID = uuid.New()
 	f.CreatedAt = time.Now()
 	_, err := r.db.Exec(ctx,
-		`INSERT INTO fruits (id, name, quantity, price, created_at) VALUES ($1,$2,$3,$4,$5)`,
-		f.ID, f.Name, f.Quantity, f.Price, f.CreatedAt,
+		`INSERT INTO fruits (id, name, quantity, price, created_at, updated_at) VALUES ($1,$2,$3,$4,$5,$6)`,
+		f.ID, f.Name, f.Quantity, f.Price, f.CreatedAt, f.UpdatedAt,
 	)
 	return err
 }
 
 func (r *fruitRepo) Update(ctx context.Context, f *model.Fruit) error {
 	_, err := r.db.Exec(ctx,
-		`UPDATE fruits SET name=$1, quantity=$2, price=$3 WHERE id=$4`,
-		f.Name, f.Quantity, f.Price, f.ID,
+		`UPDATE fruits SET name=$1, quantity=$2, price=$3, updated_at=$4 WHERE id=$5`,
+		f.Name, f.Quantity, f.Price, time.Now(), f.ID, 
 	)
 	return err
 }
