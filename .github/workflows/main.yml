@@ -20,7 +20,9 @@ jobs:
         go-version: "1.24.4"
 
     - name: Init Go Workspace
-      run: go work init
+      run: |
+        go work init ./api ./user-service
+        go work use ./api ./user-service
 
     - name: Sync Go Workspace
       run: go work sync
