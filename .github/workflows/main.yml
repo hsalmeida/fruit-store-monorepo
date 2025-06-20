@@ -22,11 +22,6 @@ jobs:
     - name: Init Go Workspace
       run: go work init
 
-    - name: Init Go Workspace
-      run: |
-        go work init ./api ./user-service
-        go work use ./api ./user-service
-
     - name: Sync Go Workspace
       run: go work sync
 
