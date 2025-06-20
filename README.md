@@ -2,6 +2,8 @@
 
 Desafio de Codificação: CRUD de Loja de Frutas em Go (com Microserviço Adicional)
 
+[![CI](https://github.com/hsalmeida/fruit-store-monorepo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/hsalmeida/fruit-store-monorepo/actions/workflows/ci.yml)
+
 ---
 
 ## Visão Geral
